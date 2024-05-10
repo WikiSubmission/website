@@ -1,15 +1,25 @@
 {
-  "index": "Introduction",
-  "another": "Another Page",
-  "advanced": "Advanced (A Folder)",
+  "index": "Welcome",
+  "submission": "Submission",
+  "code-19": "Code 19",
+  "api-docs": "API Documentation",
+  "wiki": {
+    "title": "Wiki",
+    "type": "page",
+    "href": "/"
+  },
+  "Submission": {
+    "title": "Submission",
+    "type": "page",
+    "href": "/submission"
+  },
+  "Code 19": {
+    "title": "Code 19",
+    "type": "page",
+    "href": "/code-19"
+  },
   "about": {
     "title": "About",
     "type": "page"
-  },
-  "contact": {
-    "title": "Contact ↗",
-    "type": "page",
-    "href": "https://twitter.com/shuding_",
-    "newWindow": true
   }
 }

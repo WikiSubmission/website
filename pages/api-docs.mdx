@@ -1,0 +1,172 @@
+import { Callout } from 'nextra/components'
+
+# WikiSubmission API
+
+## Endpoints
+
+* [`/quran`](#quran)
+* [`/moc`](#moc)
+* [`/prayer-times`](#prayer-times)
+* [`/library`](#library)
+* *More in progress.*
+
+## Base URL
+
+<Callout emoji="🌐"> 
+`api.wikisubmission.org`
+</Callout>
+
+## Standard Response Structure
+
+The following TypeScript interface outlines the standard format to expect for all JSON responses.
+
+```typescript copy
+interface WikiSubmissionResponse<T> {
+    /** Whether the request was successful for its intended purpose */
+    success: boolean;
+
+    /** The response data */
+    results: T | [];
+
+    /** Additional request details */
+    metadata: { 
+        timestamp: number;
+        requestId: string;
+        cached: boolean;
+    };
+
+    /** The response error, if thrown */
+    error?: {
+        httpCode: number;
+        fault: 'client' | 'server';
+        description: string;
+        caughtErrors: string[];
+        severity: 'low' | 'medium' | 'high';
+        timestamp: number = Date.now();
+    };
+}
+```
+
+Note:
+
+* For consistency, the `results` property will always be an object **array** (even if a single object is expected).
+* To fully validate responses, ensure no `error` object was returned and the `success` property is true.
+
+## `/quran`
+
+### GET `/quran/:chapter`
+
+Returns data for all verses in the specified chapter.
+
+### GET `/quran/:chapter + :verse`
+
+Returns data for the specified verse(s).
+ 
+<Callout>
+ Use ':' as a chapter & verse separator. Use a dash ('-') to define a custom verse range.
+</Callout>
+
+Examples:
+
+* ...`/quran/3:5`
+* ...`/quran/3:5-8`
+* ...`/quran/3:5,3:6,3:7,3:8`
+
+## `/library`
+
+### GET `/library/:category/:resource`
+
+Returns known **file content** from our resource library.
+
+`category` values may be one of the following:
+
+* `books`
+* `media`
+* `submitters-perspectives`
+* `research`
+* `misc`
+* `recitations` (coming soon)
+
+`resource` values depend on the category. For example:
+
+* .../library/books/`quran-the-final-testament`
+* .../library/submitters-perspectives/`1988_nov`
+* .../library/research/`the-math-miracle-intentional-or-coincidental`
+
+Note:
+
+* All resources are rendered on the browser by default (Content-Disposition header). Add `download=true` to the URL to direct download the resource.
+* Adding extensions (.pdf, .png, etc) is optional though we recommend avoiding it as the server will resolve them.
+
+## Key Types
+
+If your application requires type definitions, below are TypeScript definitions of some key data items.
+
+<Callout>
+ You can add a "`customProperties`" query to a request URL to return **only** return the properties you need (e.g. `.../quran/1/?customProperties=verse_id,verse_text_english`). Use with caution for type-sensitive languages.
+</Callout>
+
+### DataQuran
+```typescript copy
+interface DataQuranItem {
+    /** Verse identifiers */
+    chapter_number: number;
+    verse_number: number;
+    verse_id: string;
+    verse_id_arabic: string;
+    verse_index: number;
+    verse_index_numbered?: number | null;
+    verse_index_initialed?: number | null;
+
+    /** Verse subtitles */
+    verse_subtitle_english?: string | null;
+    verse_subtitle_turkish?: string | null;
+
+    /** Verse text */
+    verse_text_english: string;
+    verse_text_arabic: string;
+    verse_text_turkish: string;
+    verse_text_persian: string;
+    verse_text_russian: string;
+    verse_text_swedish: string;
+    verse_text_bahasa: string;
+    verse_text_french: string;
+    verse_text_arabic_clean: string;
+    verse_text_arabic_transliteration: string;
+
+    /** Verse footnotes */
+    verse_footnote_english?: string | null;
+    verse_footnote_turkish?: string | null;
+
+    /** Chapter metrics */
+    chapter_verses: number;
+    chapter_revelation_order: number;
+    chapter_initials: string;
+    chapter_god_total: string;
+
+    /** Chapter titles */
+    chapter_title_english: string;
+    chapter_title_arabic: string;
+    chapter_title_turkish: string;
+    chapter_title_persian: string;
+    chapter_title_russian: string;
+    chapter_title_swedish: string;
+    chapter_title_bahasa: string;
+    chapter_title_french: string;
+    chapter_title_arabic_transliteration: string;
+
+    /** Verse metrics */
+    verse_word_count: number;
+    verse_letter_count: number;
+    verse_god_count: number;
+    verse_gematrical_value: bigint;
+
+    /** Verse recitation audios */
+    verse_audio_arabic_mishary: string;
+    verse_audio_arabic_basit: string;
+    verse_audio_arabic_minshawi: string;
+
+    /** Verse images */
+    verse_raw_image_arabic: string;
+}
+```
