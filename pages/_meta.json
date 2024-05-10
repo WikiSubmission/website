@@ -1,22 +1,23 @@
 {
-  "index": "Welcome",
-  "submission": "Submission",
-  "code-19": "Code 19",
-  "api-docs": "API Documentation",
-  "wiki": {
-    "title": "Wiki",
-    "type": "page",
-    "href": "/"
+  "index": {
+    "title": "Home",
+    "type": "page"
   },
-  "Submission": {
+  "submission": {
     "title": "Submission",
-    "type": "page",
-    "href": "/submission"
+    "type": "page"
   },
-  "Code 19": {
+  "code-19": {
     "title": "Code 19",
-    "type": "page",
-    "href": "/code-19"
+    "type": "page"
+  },
+  "developer": { 
+    "title": "Developer",
+    "type": "page"
+  },
+  "contact": { 
+    "title": "Contact",
+    "type": "page"
   },
   "about": {
     "title": "About",
