@@ -72,6 +72,33 @@ Examples:
 * ...`/quran/3:5-8`
 * ...`/quran/3:5,3:6,3:7,3:8`
 
+### GET `/quran/search/:query`
+
+Searches the Quran's key text fields. By default, the `verse_text_english`, `verse_header_english`, and `verse_footnote_english` fields are queried.
+
+You can specify certain instructions using query parameters:
+
+* `filter=loose` will ignore the exact order of words in the query
+* `highlight=true` will apply a markdown highlight around the query wherever it appears
+* `extent=textonly` will not search your query against subtitles and footnotes
+* `language=[...]` value can be specified to match against its corresponding text properties (see type definition below for supported languages)
+
+### GET `/quran/randomverse`
+
+Returns a random verse.
+
+### GET `/quran/randomchapter`
+
+Returns a random chapter.
+
+### GET `/quran/data`
+
+Returns the entire Quran in JSON.
+
+<Callout>
+ You can add a "`customProperties`" query to the request URL to return **only** return the properties you need (e.g. `.../quran/1/?customProperties=verse_id,verse_text_english`). Use with caution for type-sensitive languages.
+</Callout>
+
 ## `/library`
 
 ### GET `/library/:category/:resource`
@@ -101,10 +128,6 @@ Note:
 ## Key Types
 
 If your application requires type definitions, below are TypeScript definitions of some key data items.
-
-<Callout>
- You can add a "`customProperties`" query to a request URL to return **only** return the properties you need (e.g. `.../quran/1/?customProperties=verse_id,verse_text_english`). Use with caution for type-sensitive languages.
-</Callout>
 
 ### DataQuran
 ```typescript copy
