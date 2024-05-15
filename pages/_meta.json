@@ -11,6 +11,10 @@
     "title": "Code 19",
     "type": "page"
   },
+  "blog": { 
+    "title": "Blog",
+    "type": "page"
+  },
   "developer": { 
     "title": "Developer",
     "type": "page"

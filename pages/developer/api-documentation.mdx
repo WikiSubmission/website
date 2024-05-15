@@ -5,7 +5,6 @@ import { Callout } from 'nextra/components'
 ## Endpoints
 
 * [`/quran`](#quran)
-* [`/moc`](#moc)
 * [`/prayer-times`](#prayer-times)
 * [`/library`](#library)
 * *More in progress.*
@@ -18,7 +17,7 @@ import { Callout } from 'nextra/components'
 
 ## Standard Response Structure
 
-The following TypeScript interface outlines the standard format to expect for all JSON responses.
+The following TypeScript interface outlines the standard format to expect for all JSON responses. For result data types, click [here](/developer/api-types) or navigate to the "API Types" page.
 
 ```typescript copy
 interface WikiSubmissionResponse<T> {
@@ -49,7 +48,6 @@ interface WikiSubmissionResponse<T> {
 
 Note:
 
-* For consistency, the `results` property will always be an object **array** (even if a single object is expected).
 * To fully validate responses, ensure no `error` object was returned and the `success` property is true.
 
 ## `/quran`
@@ -99,6 +97,84 @@ Returns the entire Quran in JSON.
  You can add a "`customProperties`" query to the request URL to return **only** return the properties you need (e.g. `.../quran/1/?customProperties=verse_id,verse_text_english`). Use with caution for type-sensitive languages.
 </Callout>
 
+## `/prayer-times`
+
+### GET `/prayer-times`
+
+Returns live **prayer times data** for a given query–which may be a city, address, or latitude/longitude coordinate pair.
+
+Example(s):
+
+* .../prayer-times/`?q=new+york`
+* .../prayer-times/`?q=400+N+380+E+Provo+Utah`
+* .../prayer-times/`?q=51.5072,0.1276`
+
+### Example Response
+
+```json copy
+{
+    "success": true,
+    "httpStatusCode": 200,
+    "results": {
+        "statusString": "It's currently Isha (began 0h 14m ago). Fajr starts in 1h 57m.",
+        "locationString": "London, UK",
+        "country": "United Kingdom",
+        "countryCode": "GB",
+        "region": "England",
+        "localTime": "12:08 AM",
+        "localTimeIn24h": "00:08",
+        "localTimezone": "British Summer Time",
+        "localTimezoneId": "Europe/London",
+        "coordinates": {
+            "latitude": 51.50853,
+            "longitude": -0.12574
+        },
+        "times": {
+            "fajr": "2:05 AM",
+            "dhuhr": "12:58 PM",
+            "asr": "5:10 PM",
+            "maghrib": "8:47 PM",
+            "isha": "11:54 PM",
+            "sunrise": "5:08 AM"
+        },
+        "timesIn24h": {
+            "fajr": "02:05",
+            "dhuhr": "12:58",
+            "asr": "17:10",
+            "maghrib": "20:47",
+            "isha": "23:54",
+            "sunrise": "05:08"
+        },
+        "timesInUtc": {
+            "fajr": "01:05",
+            "dhuhr": "11:58",
+            "asr": "16:10",
+            "maghrib": "19:47",
+            "isha": "22:54",
+            "sunrise": "04:08"
+        },
+        "timesLeft": {
+            "fajr": "1h 57m",
+            "dhuhr": "12h 50m",
+            "asr": "17h 2m",
+            "maghrib": "20h 39m",
+            "isha": "23h 46m",
+            "sunrise": "5h 0m"
+        },
+        "currentPrayer": "isha",
+        "currentPrayerTimeElapsed": "0h 14m",
+        "upcomingPrayer": "fajr",
+        "upcomingPrayerTimeLeft": "1h 57m",
+        "utcOffsetInSeconds": 3600
+    },
+    "metadata": {
+        "timestamp": 1715814521250,
+        "requestId": "54A9",
+        "cached": false
+    }
+}
+```
+
 ## `/library`
 
 ### GET `/library/:category/:resource`
@@ -124,72 +200,3 @@ Note:
 
 * All resources are rendered on the browser by default (Content-Disposition header). Add `download=true` to the URL to direct download the resource.
 * Adding extensions (.pdf, .png, etc) is optional though we recommend avoiding it as the server will resolve them.
-
-## Key Types
-
-If your application requires type definitions, below are TypeScript definitions of some key data items.
-
-### DataQuran
-```typescript copy
-interface DataQuranItem {
-    /** Verse identifiers */
-    chapter_number: number;
-    verse_number: number;
-    verse_id: string;
-    verse_id_arabic: string;
-    verse_index: number;
-    verse_index_numbered?: number | null;
-    verse_index_initialed?: number | null;
-
-    /** Verse subtitles */
-    verse_subtitle_english?: string | null;
-    verse_subtitle_turkish?: string | null;
-
-    /** Verse text */
-    verse_text_english: string;
-    verse_text_arabic: string;
-    verse_text_turkish: string;
-    verse_text_persian: string;
-    verse_text_russian: string;
-    verse_text_swedish: string;
-    verse_text_bahasa: string;
-    verse_text_french: string;
-    verse_text_arabic_clean: string;
-    verse_text_arabic_transliteration: string;
-
-    /** Verse footnotes */
-    verse_footnote_english?: string | null;
-    verse_footnote_turkish?: string | null;
-
-    /** Chapter metrics */
-    chapter_verses: number;
-    chapter_revelation_order: number;
-    chapter_initials: string;
-    chapter_god_total: string;
-
-    /** Chapter titles */
-    chapter_title_english: string;
-    chapter_title_arabic: string;
-    chapter_title_turkish: string;
-    chapter_title_persian: string;
-    chapter_title_russian: string;
-    chapter_title_swedish: string;
-    chapter_title_bahasa: string;
-    chapter_title_french: string;
-    chapter_title_arabic_transliteration: string;
-
-    /** Verse metrics */
-    verse_word_count: number;
-    verse_letter_count: number;
-    verse_god_count: number;
-    verse_gematrical_value: bigint;
-
-    /** Verse recitation audios */
-    verse_audio_arabic_mishary: string;
-    verse_audio_arabic_basit: string;
-    verse_audio_arabic_minshawi: string;
-
-    /** Verse images */
-    verse_raw_image_arabic: string;
-}
-```
