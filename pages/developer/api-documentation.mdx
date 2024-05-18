@@ -68,16 +68,16 @@ Examples:
 * ...`/quran/3:5-8`
 * ...`/quran/3:5,3:6,3:7,3:8`
 
-### GET `/quran/search/:query`
+### GET `/quran/search/?q=:query`
 
 Searches the Quran's key text fields. By default, the `verse_text_english`, `verse_header_english`, and `verse_footnote_english` fields are queried.
 
 You can specify certain instructions using query parameters:
 
-* `filter=loose` will ignore the exact order of words in the query
+* `ignore_word_order=true` will ignore the exact order of words in the query
 * `highlight=true` will apply a markdown highlight around the query wherever it appears
-* `extent=textonly` will not search your query against subtitles and footnotes
-* `language=[...]` value can be specified to match against its corresponding text properties (see type definition below for supported languages)
+* `extent=text_only` will not search your query against subtitles and footnotes
+* `language=[english | turkish | etc...]` value can be specified to match against its corresponding text properties (see type definition below for supported languages)
 
 ### GET `/quran/randomverse`
 
@@ -92,12 +92,12 @@ Returns a random chapter.
 Returns the entire Quran in JSON.
 
 <Callout>
- You can add a "`customProperties`" query to the request URL to return **only** return the properties you need (e.g. `.../quran/1/?customProperties=verse_id,verse_text_english`). Use with caution for type-sensitive languages.
+ You can add a "`custom_fields`" query to the request URL to return **only** return the properties you need (e.g. `.../quran/1/?custom_fields=verse_id,verse_text_english`). Use with caution for type-sensitive languages.
 </Callout>
 
 ## `/prayer-times`
 
-### GET `/prayer-times`
+### GET `/prayer-times/?q=:query`
 
 Returns live **prayer times data** for a given query–which may be a city, address, or latitude/longitude coordinate pair.
 
