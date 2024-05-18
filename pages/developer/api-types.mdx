@@ -72,15 +72,15 @@ interface DataQuranItem {
 
 ```typescript copy
 interface DataPrayerTimes {
-  statusString: string;
-  locationString: string;
+  status_string: string;
+  location_string: string;
   country: string;
-  countryCode: string;
+  country_code: string;
   region: string;
-  localTime: string;
-  localTimeIn24h: string;
-  localTimezone: string;
-  localTimezoneId: string;
+  local_time: string;
+  local_time_in_24h: string;
+  local_timezone: string;
+  local_timezone_id: string;
   coordinates: {
     latitude: number;
     longitude: number;
@@ -93,7 +93,7 @@ interface DataPrayerTimes {
     isha: string;
     sunrise: string;
   };
-  timesIn24h: {
+  times_in_24h: {
     fajr: string;
     dhuhr: string;
     asr: string;
@@ -101,7 +101,7 @@ interface DataPrayerTimes {
     isha: string;
     sunrise: string;
   };
-  timesInUtc: {
+  times_in_utc: {
     fajr: string;
     dhuhr: string;
     asr: string;
@@ -109,7 +109,7 @@ interface DataPrayerTimes {
     isha: string;
     sunrise: string;
   };
-  timesLeft: {
+  times_left: {
     fajr: string;
     dhuhr: string;
     asr: string;
@@ -117,10 +117,11 @@ interface DataPrayerTimes {
     isha: string;
     sunrise: string;
   };
-  currentPrayer: string;
-  currentPrayerTimeElapsed: string;
-  upcomingPrayer: string;
-  upcomingPrayerTimeLeft: string;
-  utcOffsetInSeconds: number;
+  current_prayer: string;
+  current_prayer_time_elapsed: string;
+  upcoming_prayer: string;
+  upcoming_prayer_time_left: string;
+  utc_offset_in_seconds: number;
+  schedule?: Record<DateString, HourString[]>;
 }
 ```

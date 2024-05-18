@@ -6,7 +6,6 @@ import { Callout } from 'nextra/components'
 
 * [`/quran`](#quran)
 * [`/prayer-times`](#prayer-times)
-* [`/library`](#library)
 * *More in progress.*
 
 ## Base URL
@@ -30,16 +29,15 @@ interface WikiSubmissionResponse<T> {
     /** Additional request details */
     metadata: { 
         timestamp: number;
-        requestId: string;
+        request_id: string;
         cached: boolean;
     };
 
     /** The response error, if thrown */
     error?: {
-        httpCode: number;
         fault: 'client' | 'server';
         description: string;
-        caughtErrors: string[];
+        caught_errors: string[];
         severity: 'low' | 'medium' | 'high';
         timestamp: number = Date.now();
     };
@@ -113,90 +111,64 @@ Example(s):
 
 ```json copy
 {
-    "success": true,
-    "httpStatusCode": 200,
-    "results": {
-        "statusString": "It's currently Isha (began 0h 14m ago). Fajr starts in 1h 57m.",
-        "locationString": "London, UK",
-        "country": "United Kingdom",
-        "countryCode": "GB",
-        "region": "England",
-        "localTime": "12:08 AM",
-        "localTimeIn24h": "00:08",
-        "localTimezone": "British Summer Time",
-        "localTimezoneId": "Europe/London",
-        "coordinates": {
-            "latitude": 51.50853,
-            "longitude": -0.12574
-        },
-        "times": {
-            "fajr": "2:05 AM",
-            "dhuhr": "12:58 PM",
-            "asr": "5:10 PM",
-            "maghrib": "8:47 PM",
-            "isha": "11:54 PM",
-            "sunrise": "5:08 AM"
-        },
-        "timesIn24h": {
-            "fajr": "02:05",
-            "dhuhr": "12:58",
-            "asr": "17:10",
-            "maghrib": "20:47",
-            "isha": "23:54",
-            "sunrise": "05:08"
-        },
-        "timesInUtc": {
-            "fajr": "01:05",
-            "dhuhr": "11:58",
-            "asr": "16:10",
-            "maghrib": "19:47",
-            "isha": "22:54",
-            "sunrise": "04:08"
-        },
-        "timesLeft": {
-            "fajr": "1h 57m",
-            "dhuhr": "12h 50m",
-            "asr": "17h 2m",
-            "maghrib": "20h 39m",
-            "isha": "23h 46m",
-            "sunrise": "5h 0m"
-        },
-        "currentPrayer": "isha",
-        "currentPrayerTimeElapsed": "0h 14m",
-        "upcomingPrayer": "fajr",
-        "upcomingPrayerTimeLeft": "1h 57m",
-        "utcOffsetInSeconds": 3600
+  "success": true,
+  "httpStatusCode": 200,
+  "results": {
+    "status_string": "It's currently Sunrise (began 1h 41m ago). Dhuhr starts in 6h 12m.",
+    "location_string": "London, UK",
+    "country": "United Kingdom",
+    "country_code": "GB",
+    "region": "England",
+    "local_time": "6:46 AM",
+    "local_time_in_24h": "06:46",
+    "local_timezone": "British Summer Time",
+    "local_timezone_id": "Europe/London",
+    "coordinates": {
+      "latitude": 51.50853,
+      "longitude": -0.12574
     },
-    "metadata": {
-        "timestamp": 1715814521250,
-        "requestId": "54A9",
-        "cached": false
-    }
+    "times": {
+      "fajr": "1:54 AM",
+      "dhuhr": "12:58 PM",
+      "asr": "5:11 PM",
+      "maghrib": "8:50 PM",
+      "isha": "12:06 AM",
+      "sunrise": "5:05 AM"
+    },
+    "times_in_24h": {
+      "fajr": "01:54",
+      "dhuhr": "12:58",
+      "asr": "17:11",
+      "maghrib": "20:50",
+      "isha": "00:06",
+      "sunrise": "05:05"
+    },
+    "times_in_utc": {
+      "fajr": "00:54",
+      "dhuhr": "11:58",
+      "asr": "16:11",
+      "maghrib": "19:50",
+      "isha": "23:06",
+      "sunrise": "04:05"
+    },
+    "times_left": {
+      "fajr": "19h 8m",
+      "dhuhr": "6h 12m",
+      "asr": "10h 25m",
+      "maghrib": "14h 4m",
+      "isha": "17h 20m",
+      "sunrise": "22h 19m"
+    },
+    "current_prayer": "sunrise",
+    "current_prayer_time_elapsed": "1h 41m",
+    "upcoming_prayer": "dhuhr",
+    "upcoming_prayer_time_left": "6h 12m",
+    "utc_offset_in_seconds": 3600
+  },
+  "metadata": {
+    "timestamp": 1716011202037,
+    "requestId": "B0A3",
+    "cached": false
+  }
 }
 ```
-
-## `/library`
-
-### GET `/library/:category/:resource`
-
-Returns known **file content** from our resource library.
-
-`category` values may be one of the following:
-
-* `books`
-* `media`
-* `submitters-perspectives`
-* `research`
-* `misc`
-* `recitations` (coming soon)
-
-`resource` values depend on the category. For example:
-
-* .../library/books/`quran-the-final-testament`
-* .../library/submitters-perspectives/`1988_nov`
-* .../library/research/`the-math-miracle-intentional-or-coincidental`
-
-Note:
-
-* All resources are rendered on the browser by default (Content-Disposition header). Add `download=true` to the URL to direct download the resource.
-* Adding extensions (.pdf, .png, etc) is optional though we recommend avoiding it as the server will resolve them.
