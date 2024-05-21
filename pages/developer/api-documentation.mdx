@@ -70,13 +70,13 @@ Examples:
 
 ### GET `/quran/search/?q=:query`
 
-Searches the Quran's key text fields. By default, the `verse_text_english`, `verse_header_english`, and `verse_footnote_english` fields are queried.
+Searches the Quran's key text fields. By default, the `verse_text_english`, `verse_subtitle_english`, and `verse_footnote_english` fields are queried.
 
 You can specify certain instructions using query parameters:
 
 * `ignore_word_order=true` will ignore the exact order of words in the query
-* `highlight=true` will apply a markdown highlight around the query wherever it appears
 * `ignore_commentary=true` will not search your query against subtitles and footnotes
+* `highlight=true` will apply a markdown highlight around the query wherever it appears
 * `language=[english | turkish | etc...]` value can be specified to match against its corresponding text properties (see type definition below for supported languages)
 
 ### GET `/quran/randomverse`
@@ -112,7 +112,7 @@ Example(s):
 ```json copy
 {
   "success": true,
-  "httpStatusCode": 200,
+  "http_status_code": 200,
   "results": {
     "status_string": "It's currently Sunrise (began 1h 41m ago). Dhuhr starts in 6h 12m.",
     "location_string": "London, UK",
@@ -167,7 +167,7 @@ Example(s):
   },
   "metadata": {
     "timestamp": 1716011202037,
-    "requestId": "B0A3",
+    "request_id": "B0A3",
     "cached": false
   }
 }
