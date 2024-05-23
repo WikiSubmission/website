@@ -2,7 +2,40 @@
 
 With reference to the [documentation](/developer/api-documentation), below are typescript definitions to expect for certain key endpoints.
 
-## DataQuran
+import { Tabs } from 'nextra/components'
+
+<Tabs items={['Response', 'DataQuran', 'DataPrayerTimes']}>
+<Tabs.Tab>
+```typescript copy
+interface WikiSubmissionResponse<T> {
+    /** Whether the request was successful for its intended purpose */
+    success: boolean;
+ 
+    /** The response data */
+    results: T;
+ 
+    /** Additional request details */
+    metadata: { 
+        timestamp: number;
+        request_id: string;
+        cached: boolean;
+    };
+ 
+    /** The response error, if thrown */
+    error?: {
+        fault: 'client' | 'server';
+        description: string;
+        caught_errors: string[];
+        severity: 'low' | 'medium' | 'high';
+        timestamp: number = Date.now();
+    };
+}
+```
+</Tabs.Tab>
+<Tabs.Tab>
+Note:
+
+* `DataQuranItem` will always be returned as an array of objects.
 
 ```typescript copy
 interface DataQuranItem {
@@ -67,9 +100,8 @@ interface DataQuranItem {
     verse_raw_image_arabic: string;
 }
 ```
-
-## Prayer Times
-
+</Tabs.Tab>
+<Tabs.Tab>
 ```typescript copy
 interface DataPrayerTimes {
   status_string: string;
@@ -124,3 +156,5 @@ interface DataPrayerTimes {
   utc_offset_in_seconds: number;
 }
 ```
+</Tabs.Tab>
+</Tabs>

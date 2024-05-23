@@ -11,6 +11,14 @@
     "title": "Code 19",
     "type": "page"
   },
+  "blog": { 
+    "title": "Blog",
+    "type": "page"
+  },
+  "resources": { 
+    "title": "Resources",
+    "type": "page"
+  },
   "developer": { 
     "title": "Developer",
     "type": "page"

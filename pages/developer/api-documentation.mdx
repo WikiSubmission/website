@@ -2,6 +2,8 @@ import { Callout } from 'nextra/components'
 
 # WikiSubmission API
 
+Access some useful public endpoints for Submission for developing services or applications.
+
 ## Endpoints
 
 * [`/quran`](#quran)
@@ -24,7 +26,7 @@ interface WikiSubmissionResponse<T> {
     success: boolean;
 
     /** The response data */
-    results: T | [];
+    results: T;
 
     /** Additional request details */
     metadata: { 
@@ -92,19 +94,19 @@ Returns a random chapter.
 Returns the entire Quran in JSON.
 
 <Callout>
- You can add a "`custom_fields`" query to the request URL to return **only** return the properties you need (e.g. `.../quran/1/?custom_fields=verse_id,verse_text_english`). Use with caution for type-sensitive languages.
+ You can add a "`custom_fields`" query to your request URL to return **only** return the JSON properties you need (e.g. `.../quran/1/?custom_fields=verse_id,verse_text_english`). Use with caution for type-sensitive languages.
 </Callout>
 
 ## `/prayer-times`
 
 ### GET `/prayer-times/?q=:query`
 
-Returns live **prayer times data** for a given query–which may be a city, address, or latitude/longitude coordinate pair.
+Returns live **prayer times data** for a given query–which may be a city, landmark, address, or latitude/longitude coordinate pair. No specific format or rules are expected, you can provide as much or little detail as needed. Of course, a more specific the query would result in  better accuracy.
 
 Example(s):
 
 * .../prayer-times/`?q=new+york`
-* .../prayer-times/`?q=400+N+380+E+Provo+Utah`
+* .../prayer-times/`?q=400+W+380+N+Provo+Utah`
 * .../prayer-times/`?q=51.5072,0.1276`
 
 ### Example Response
