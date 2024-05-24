@@ -1,0 +1,176 @@
+import { Callout } from 'nextra/components'
+
+# WikiSubmission API
+
+Access some useful public endpoints for Submission for developing services or applications.
+
+## Endpoints
+
+* [`/quran`](#quran)
+* [`/prayer-times`](#prayer-times)
+* *More in progress.*
+
+## Base URL
+
+<Callout emoji="🌐"> 
+`api.wikisubmission.org`
+</Callout>
+
+## Standard Response Structure
+
+The following TypeScript interface outlines the standard format to expect for all JSON responses. For result data types, click [here](/developer/api-types) or navigate to the "API Types" page.
+
+```typescript copy
+interface WikiSubmissionResponse<T> {
+    /** Whether the request was successful for its intended purpose */
+    success: boolean;
+
+    /** The response data */
+    results: T;
+
+    /** Additional request details */
+    metadata: { 
+        timestamp: number;
+        request_id: string;
+        cached: boolean;
+    };
+
+    /** The response error, if thrown */
+    error?: {
+        fault: 'client' | 'server';
+        description: string;
+        caught_errors: string[];
+        severity: 'low' | 'medium' | 'high';
+        timestamp: number = Date.now();
+    };
+}
+```
+
+Note:
+
+* To fully validate responses, ensure no `error` object was returned and the `success` property is true.
+
+## `/quran`
+
+### GET `/quran/:chapter`
+
+Returns data for all verses in the specified chapter.
+
+### GET `/quran/:chapter + :verse`
+
+Returns data for the specified verse(s).
+ 
+<Callout>
+ Use ':' as a chapter & verse separator. Use a dash ('-') to define a custom verse range.
+</Callout>
+
+Examples:
+
+* ...`/quran/3:5`
+* ...`/quran/3:5-8`
+* ...`/quran/3:5,3:6,3:7,3:8`
+
+### GET `/quran/search/?q=:query`
+
+Searches the Quran's key text fields. By default, the `verse_text_english`, `verse_subtitle_english`, and `verse_footnote_english` fields are queried.
+
+You can specify certain instructions using query parameters:
+
+* `ignore_word_order=true` will ignore the exact order of words in the query
+* `ignore_commentary=true` will not search your query against subtitles and footnotes
+* `highlight=true` will apply a markdown highlight around the query wherever it appears
+* `language=[english | turkish | etc...]` value can be specified to match against its corresponding text properties (see type definition below for supported languages)
+
+### GET `/quran/randomverse`
+
+Returns a random verse.
+
+### GET `/quran/randomchapter`
+
+Returns a random chapter.
+
+### GET `/quran/data`
+
+Returns the entire Quran in JSON.
+
+<Callout>
+ You can add a "`custom_fields`" query to your request URL to return **only** return the JSON properties you need (e.g. `.../quran/1/?custom_fields=verse_id,verse_text_english`). Use with caution for type-sensitive languages.
+</Callout>
+
+## `/prayer-times`
+
+### GET `/prayer-times/?q=:query`
+
+Returns live **prayer times data** for a given query–which may be a city, landmark, address, or latitude/longitude coordinate pair. No specific format or rules are expected, you can provide as much or little detail as needed. Of course, a more specific the query would result in  better accuracy.
+
+Example(s):
+
+* .../prayer-times/`?q=new+york`
+* .../prayer-times/`?q=400+W+380+N+Provo+Utah`
+* .../prayer-times/`?q=51.5072,0.1276`
+
+### Example Response
+
+```json copy
+{
+  "success": true,
+  "http_status_code": 200,
+  "results": {
+    "status_string": "It's currently Sunrise (began 1h 41m ago). Dhuhr starts in 6h 12m.",
+    "location_string": "London, UK",
+    "country": "United Kingdom",
+    "country_code": "GB",
+    "region": "England",
+    "local_time": "6:46 AM",
+    "local_time_in_24h": "06:46",
+    "local_timezone": "British Summer Time",
+    "local_timezone_id": "Europe/London",
+    "coordinates": {
+      "latitude": 51.50853,
+      "longitude": -0.12574
+    },
+    "times": {
+      "fajr": "1:54 AM",
+      "dhuhr": "12:58 PM",
+      "asr": "5:11 PM",
+      "maghrib": "8:50 PM",
+      "isha": "12:06 AM",
+      "sunrise": "5:05 AM"
+    },
+    "times_in_24h": {
+      "fajr": "01:54",
+      "dhuhr": "12:58",
+      "asr": "17:11",
+      "maghrib": "20:50",
+      "isha": "00:06",
+      "sunrise": "05:05"
+    },
+    "times_in_utc": {
+      "fajr": "00:54",
+      "dhuhr": "11:58",
+      "asr": "16:11",
+      "maghrib": "19:50",
+      "isha": "23:06",
+      "sunrise": "04:05"
+    },
+    "times_left": {
+      "fajr": "19h 8m",
+      "dhuhr": "6h 12m",
+      "asr": "10h 25m",
+      "maghrib": "14h 4m",
+      "isha": "17h 20m",
+      "sunrise": "22h 19m"
+    },
+    "current_prayer": "sunrise",
+    "current_prayer_time_elapsed": "1h 41m",
+    "upcoming_prayer": "dhuhr",
+    "upcoming_prayer_time_left": "6h 12m",
+    "utc_offset_in_seconds": 3600
+  },
+  "metadata": {
+    "timestamp": 1716011202037,
+    "request_id": "B0A3",
+    "cached": false
+  }
+}
+```

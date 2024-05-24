@@ -1,0 +1,34 @@
+{
+  "index": {
+    "title": "Home",
+    "type": "page"
+  },
+  "submission": {
+    "title": "Submission",
+    "type": "page"
+  },
+  "code-19": {
+    "title": "Code 19",
+    "type": "page"
+  },
+  "blog": { 
+    "title": "Blog",
+    "type": "page"
+  },
+  "resources": { 
+    "title": "Resources",
+    "type": "page"
+  },
+  "developer": { 
+    "title": "Developer",
+    "type": "page"
+  },
+  "contact": { 
+    "title": "Contact",
+    "type": "page"
+  },
+  "about": {
+    "title": "About",
+    "type": "page"
+  }
+}
