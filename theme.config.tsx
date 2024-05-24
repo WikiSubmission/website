@@ -13,7 +13,7 @@ const config: DocsThemeConfig = {
   project: {
     link: 'https://github.com/wikisubmission/website',
   },
-  docsRepositoryBase: 'https://github.com/wikisubmission/website/tree/dev',
+  docsRepositoryBase: 'https://github.com/wikisubmission/website/tree/main',
   footer: {
     text: (
       <span className={`${font.className}`}>
