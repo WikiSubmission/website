@@ -27,7 +27,7 @@ interface WikiSubmissionResponse<T> {
         description: string;
         caught_errors: string[];
         severity: 'low' | 'medium' | 'high';
-        timestamp: number = Date.now();
+        timestamp: number;
     };
 }
 ```

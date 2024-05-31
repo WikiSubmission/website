@@ -39,9 +39,9 @@ interface WikiSubmissionResponse<T> {
     error?: {
         fault: 'client' | 'server';
         description: string;
-        caught_errors: string[];
+        caught_errors: string;
         severity: 'low' | 'medium' | 'high';
-        timestamp: number = Date.now();
+        timestamp: number;
     };
 }
 ```
