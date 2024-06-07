@@ -12,7 +12,8 @@ export const middleware = request => {
     }
 
     if (request.nextUrl.pathname.startsWith('/appendix/')) {
-        const appendixNumber = `${request?.nextUrl?.pathname?.split('/')[1] || '1'}`;
+        console.log(request.nextUrl.pathname);
+        const appendixNumber = `${request?.nextUrl?.pathname?.split('/')[2] || '1'}`;
         if (parseInt(appendixNumber) >= 1 && parseInt(appendixNumber) <= 38) { 
             return NextResponse.redirect(new URL(`https://docs.wikisubmission.org/library/books/quran-the-final-testament-appendix-${appendixNumber}`, ))
         } else { 
