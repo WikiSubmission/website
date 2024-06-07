@@ -4,7 +4,7 @@ import { NextResponse, NextRequest } from 'next/server';
 export const middleware = request => {
 
     if (request.nextUrl.pathname === '/authorize-discord') { 
-        return NextResponse.redirect(new URL(`https://discord.com/oauth2/authorize?client_id=978658099474890793`))
+        return NextResponse.redirect(new URL(`https://discord.com/oauth2/authorize?client_id=978658099474890793&permissions=274877926400&scope=bot%20applications.commands`))
     }
 
     if (request.nextUrl.pathname.startsWith('/library')) { 
