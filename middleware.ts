@@ -4,6 +4,10 @@ import { NextRequest } from 'next/server';
 
 export const middleware = request => {
 
+    if (request.nextUrl.pathname === '/authorize-discord') { 
+        return NextResponse.redirect(new URL(`https://discord.com/oauth2/authorize?client_id=978658099474890793`))
+    }
+
     if (request.nextUrl.pathname.startsWith('/library')) { 
         return NextResponse.redirect(new URL(`https://docs.wikisubmission.org${request.nextUrl.pathname}`))
     }
