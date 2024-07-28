@@ -17,15 +17,13 @@ interface WikiSubmissionResponse<T> {
     /** Additional request details */
     metadata: { 
         timestamp: number;
-        request_id: string;
-        cached: boolean;
     };
  
     /** The response error, if thrown */
     error?: {
         fault: 'client' | 'server';
-        description: string;
-        caught_errors: string[];
+        name: string;
+        description: string[];
         severity: 'low' | 'medium' | 'high';
         timestamp: number;
     };

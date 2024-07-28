@@ -31,15 +31,13 @@ interface WikiSubmissionResponse<T> {
     /** Additional request details */
     metadata: { 
         timestamp: number;
-        request_id: string;
-        cached: boolean;
     };
 
     /** The response error, if thrown */
     error?: {
         fault: 'client' | 'server';
+        name: string;
         description: string;
-        caught_errors: string;
         severity: 'low' | 'medium' | 'high';
         timestamp: number;
     };
@@ -81,11 +79,11 @@ You can specify certain instructions using query parameters:
 * `highlight=true` will apply a markdown highlight around the query wherever it appears
 * `language=[english | turkish | etc...]` value can be specified to match against its corresponding text properties (see type definition below for supported languages)
 
-### GET `/quran/randomverse`
+### GET `/quran/random-verse`
 
 Returns a random verse.
 
-### GET `/quran/randomchapter`
+### GET `/quran/random-chapter`
 
 Returns a random chapter.
 
@@ -169,8 +167,6 @@ Example(s):
   },
   "metadata": {
     "timestamp": 1716011202037,
-    "request_id": "B0A3",
-    "cached": false
   }
 }
 ```
