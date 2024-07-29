@@ -22,7 +22,7 @@ interface WikiSubmissionResponse<T> {
     /** The response error, if thrown */
     error?: {
         name: string;
-        description: string[];
+        description: string;
         fault: 'client' | 'server';
         severity: 'low' | 'medium' | 'high';
     };
