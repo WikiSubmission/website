@@ -35,11 +35,10 @@ interface WikiSubmissionResponse<T> {
 
     /** The response error, if thrown */
     error?: {
-        fault: 'client' | 'server';
-        name: string;
+      name: string;
         description: string;
+        fault: 'client' | 'server';
         severity: 'low' | 'medium' | 'high';
-        timestamp: number;
     };
 }
 ```
