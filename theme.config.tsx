@@ -9,7 +9,7 @@ const font = Charis_SIL({
 })
 
 const config: DocsThemeConfig = {
-  logo: <span style={{ fontSize: 30 }} className={`${font.className}`}>WikiSubmission</span>,
+  logo: <span style={{ fontSize: 35 }} className={`${font.className}`}>WikiSubmission</span>,
   project: {
     link: 'https://github.com/wikisubmission/website',
   },
@@ -21,6 +21,18 @@ const config: DocsThemeConfig = {
         <a href="https://wikisubmission.org" target="_blank">
           <strong>WikiSubmission</strong>
         </a>
+        <hr />
+        <div>
+          <a href='/contact' style={{ fontSize: 13, color: "purple", paddingRight: 8 }}>
+            Contact
+          </a>
+          <a href='/terms-of-use' style={{ fontSize: 13, color: "purple", paddingRight: 8 }}>
+            Terms of Use
+          </a>
+          <a href='/privacy-policy' style={{ fontSize: 13, color: "purple" }}>
+            Privacy Policy
+          </a>
+        </div>
       </span>
     )
   },
