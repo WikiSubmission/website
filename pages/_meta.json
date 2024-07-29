@@ -29,6 +29,15 @@
   },
   "about": {
     "title": "About",
-    "type": "page"
+    "type": "page",
+    "display": "hidden"
+  },
+  "privacy-policy": { 
+    "title": "Privacy Policy",
+    "display": "hidden"
+  },
+  "terms-of-use": { 
+    "title": "Terms of Use",
+    "display": "hidden"
   }
 }
