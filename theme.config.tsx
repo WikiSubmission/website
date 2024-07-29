@@ -23,13 +23,13 @@ const config: DocsThemeConfig = {
         </a>
         <hr />
         <div>
-          <a href='/contact' style={{ fontSize: 13, color: "purple", paddingRight: 8 }}>
+          <a href='/contact' style={{ fontSize: 13, color: "green", paddingRight: 8 }}>
             Contact
           </a>
-          <a href='/terms-of-use' style={{ fontSize: 13, color: "purple", paddingRight: 8 }}>
+          <a href='/terms-of-use' style={{ fontSize: 13, color: "green", paddingRight: 8 }}>
             Terms of Use
           </a>
-          <a href='/privacy-policy' style={{ fontSize: 13, color: "purple" }}>
+          <a href='/privacy-policy' style={{ fontSize: 13, color: "green" }}>
             Privacy Policy
           </a>
         </div>
